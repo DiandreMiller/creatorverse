@@ -2,7 +2,7 @@ const ShowCreators = () => {
 
     return (
         <div>
-            <h1>This page is to show creators</h1>
+            <h1 style={{ color: 'yellow' }}>This page is to show creators</h1>
         </div>
     )
 }
