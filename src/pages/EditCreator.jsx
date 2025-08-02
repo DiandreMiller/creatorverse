@@ -2,7 +2,7 @@ const EditCreator = () => {
 
     return (
         <div>
-            <h1>This page is to edit a creator</h1>
+            <h1 style={{ color: 'orange' }}>This page is to edit a creator</h1>
         </div>
     )
 }
