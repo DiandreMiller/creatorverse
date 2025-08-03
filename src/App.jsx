@@ -10,6 +10,9 @@ import ShowCreators from './pages/ShowCreators';
 import ViewCreator from './pages/ViewCreator';
 import FOUROFOUR from './pages/FOUROFOUR';
 
+//Components
+import Navbar from './components/Navbar';
+
 console.log('supabase:', supabase);
 
 function App() {
@@ -28,6 +31,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <div>
       <h1 style={{ color: 'red' }}>This is app.js</h1>
     </div>
