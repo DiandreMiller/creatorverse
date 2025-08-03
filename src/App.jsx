@@ -4,11 +4,12 @@ import supabase from './client';
 import './App.css'
 
 //Pages
-import AddCreator from './pages/AddCreator'
+import AddCreator from './pages/AddCreator';
 import EditCreator from './pages/EditCreator';
 import ShowCreators from './pages/ShowCreators';
 import ViewCreator from './pages/ViewCreator';
 import FOUROFOUR from './pages/FOUROFOUR';
+import Home from './pages/Home';
 
 //Components
 import Navbar from './components/Navbar';
@@ -32,11 +33,9 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div>
-      <h1 style={{ color: 'red' }}>This is app.js</h1>
-    </div>
       <Routes>
         <Route element={<AddCreator />} path='/add-creator'/>
+        <Route element={<Home />} path='/' />
         <Route element={<EditCreator />} path='/edit-creator/:id'/>
         <Route element={<ShowCreators />} path='/show-creators'/>
         <Route element={<ViewCreator />} path='/view-creator/:id'/>
