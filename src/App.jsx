@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import supabase from './client';
 import './App.css'
 
 //Pages
@@ -9,7 +10,22 @@ import ShowCreators from './pages/ShowCreators';
 import ViewCreator from './pages/ViewCreator';
 import FOUROFOUR from './pages/FOUROFOUR';
 
+console.log('supabase:', supabase);
+
 function App() {
+
+  useEffect(() => {
+    async function fetchSession() {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Error fetching session:', error);
+      } else {
+        console.log('Current session:', session);
+      }
+    }
+    fetchSession();
+  }, []);
+
   return (
     <BrowserRouter>
       <div>
@@ -17,9 +33,9 @@ function App() {
     </div>
       <Routes>
         <Route element={<AddCreator />} path='/add-creator'/>
-        <Route element={<EditCreator />} path='/edit-creator'/>
+        <Route element={<EditCreator />} path='/edit-creator/:id'/>
         <Route element={<ShowCreators />} path='/show-creators'/>
-        <Route element={<ViewCreator />} path='/view-creator'/>
+        <Route element={<ViewCreator />} path='/view-creator/:id'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>
     </BrowserRouter>
@@ -28,3 +44,4 @@ function App() {
 }
 
 export default App;
+
