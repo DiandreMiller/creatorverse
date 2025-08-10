@@ -20,14 +20,14 @@ const AddCreator = () => {
         }));
     };
 
-    const handleAddACreator = async (e) => {
-        e.preventDefault(); // prevent page reload
+    const handleAddACreator = async (event) => {
+        event.preventDefault(); 
         try {
             const { data } = await axios.post(
                 `${URL}/rest/v1/creators`,
                 {
                     ...formData,
-                    create_at: new Date().toISOString() // ✅ matches DB column
+                    create_at: new Date().toISOString() 
                 },
                 {
                     headers: {
@@ -42,7 +42,6 @@ const AddCreator = () => {
             console.log("data:", data);
             alert(`${data[0].name} has been added`);
 
-            // Reset form after success
             setFormData({
                 name: "",
                 description: "",
