@@ -1,19 +1,33 @@
+import { useState } from "react";
 import axios from "axios";
 
 const AddCreator = () => {
     const URL = import.meta.env.VITE_API_URL;
     const API_KEY = import.meta.env.VITE_API_KEY;
 
-    const handleAddACreator = async () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        description: "",
+        url: "",
+        imageURL: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleAddACreator = async (e) => {
+        e.preventDefault(); // prevent page reload
         try {
             const { data } = await axios.post(
                 `${URL}/rest/v1/creators`,
                 {
-                    name: 'Kyle Kulinski',
-                    description: 'American Political YouTuber',
-                    url: 'https://www.youtube.com/@SecularTalk',
-                    imageURL: 'https://yt3.googleusercontent.com/ytc/AIdro_mP1aza51ezNHZdlu-31Djm4ahXXq4nvFfPd_Vsi6FjpYg=s160-c-k-c0x00ffffff-no-rj',
-                    create_at: new Date().toISOString() // ✅ matches your DB column name
+                    ...formData,
+                    create_at: new Date().toISOString() // ✅ matches DB column
                 },
                 {
                     headers: {
@@ -27,6 +41,14 @@ const AddCreator = () => {
 
             console.log("data:", data);
             alert(`${data[0].name} has been added`);
+
+            // Reset form after success
+            setFormData({
+                name: "",
+                description: "",
+                url: "",
+                imageURL: ""
+            });
         } catch (error) {
             console.error("Error inserting Data:", error.response?.data || error.message);
             alert("Failed to add creator");
@@ -36,7 +58,41 @@ const AddCreator = () => {
     return (
         <div>
             <h1 style={{ color: "green" }}>This page is to add a creator</h1>
-            <button onClick={handleAddACreator}>Add a creator</button>
+            <form onSubmit={handleAddACreator} style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "400px" }}>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="Description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="url"
+                    name="url"
+                    placeholder="URL"
+                    value={formData.url}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="url"
+                    name="imageURL"
+                    placeholder="Image URL"
+                    value={formData.imageURL}
+                    onChange={handleChange}
+                    required
+                />
+                <button type="submit">Add Creator</button>
+            </form>
         </div>
     );
 };
