@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios  from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const ViewCreator = () => {
 
@@ -40,6 +40,10 @@ const ViewCreator = () => {
             <h1 style={{ color: 'pink' }}>This page is to view a creator</h1>
             <h3>{displaySingleCreator.name}</h3>
             <img src={displaySingleCreator.imageURL} />
+            <br />
+            <Link to={displaySingleCreator.url} target="_blank" rel="noopener noreferrer">
+                <button style={{ color: 'green' }}>Visit YouTube Page</button>
+            </Link>
         </div>
     )
 }
