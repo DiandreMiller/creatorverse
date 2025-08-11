@@ -11,8 +11,8 @@ import FOUROFOUR from './pages/FOUROFOUR';
 import Home from './pages/Home';
 
 //Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './commons/Navbar';
+import Footer from './commons/Footer';
 
 function App() {
 
