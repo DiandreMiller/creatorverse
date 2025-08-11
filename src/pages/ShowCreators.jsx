@@ -32,12 +32,10 @@ const ShowCreators = () => {
     }, [URL, API_KEY]);
 
 
-        const handleNavigate = (id) => {
-            navigate(`/view-creator/${id}`)
-        }
+    const handleNavigate = (id) => {
+        navigate(`/view-creator/${id}`)
+    }
        
-        
-  
   
     return (
       <div>
@@ -48,11 +46,9 @@ const ShowCreators = () => {
               <li key={creator.id}>
                 <h3 onClick={() => handleNavigate(creator.id)}>{creator.name}</h3>
                 <p>{creator.description}</p>
-                <a href={creator.url} target="_blank" rel="noopener noreferrer">
-                  {creator.url}
-                </a>
                 <br />
                 <img
+                  onClick={() => handleNavigate(creator.id)}
                   src={creator.imageURL}
                   alt={creator.name}
                   style={{ width: "100px", marginTop: "10px" }}
