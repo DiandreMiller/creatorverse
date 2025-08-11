@@ -1,4 +1,11 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 const Card = () => {
+
+    const [displayCreator, setDisplayCreator] = useState({});
+
+    const URL
 
     return (
         <div>
