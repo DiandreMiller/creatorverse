@@ -1,46 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const EditCreator = ({ displayCreator, setDisplayCreator }) => {
+const EditCreator = ({ creatorId, creator, onCancel, onSave }) => {
   const URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  const [selectedId, setSelectedId] = useState("");
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    url: "",
-    imageURL: "",
+    id: creator?.id ?? "",              
+    name: creator?.name ?? "",
+    description: creator?.description ?? "",
+    url: creator?.url ?? "",
+    imageURL: creator?.imageURL ?? "",
   });
+  const [saving, setSaving] = useState(false);
 
-  const handleSelectChange = (event) => {
-    const creatorId = event.target.value;
-    setSelectedId(creatorId);
 
-    const singleCreator = displayCreator.find(
-      (creator) => creator.id === creatorId
-    );
-    if (singleCreator) {
-      setFormData({
-        name: singleCreator.name,
-        description: singleCreator.description,
-        url: singleCreator.url,
-        imageURL: singleCreator.imageURL,
-      });
-    }
-  };
+  useEffect(() => {
+    setFormData({
+      id: creator?.id ?? "",
+      name: creator?.name ?? "",
+      description: creator?.description ?? "",
+      url: creator?.url ?? "",
+      imageURL: creator?.imageURL ?? "",
+    });
+  }, [creator]);
 
-  // Handle form input changes
+
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    setFormData((previous) => ({ ...previous, [name]: value }));
   };
 
-  // PUT request to update creator
   const handleUpdate = async () => {
+    const rowId = formData.id || creator?.id || creatorId;
+    if (!rowId) {
+      alert("Missing creator ID");
+      return;
+    }
+  
     try {
-      await axios.put(
-        `${URL}/rest/v1/creators?id=eq.${selectedId}`,
-        formData,
+      setSaving(true);
+      const payload = { ...formData, id: rowId }; 
+  
+      const { data } = await axios.put(
+        `${URL}/rest/v1/creators?id=eq.${rowId}`,
+        payload,
         {
           headers: {
             apikey: API_KEY,
@@ -50,66 +54,26 @@ const EditCreator = ({ displayCreator, setDisplayCreator }) => {
           },
         }
       );
-
-      setDisplayCreator((prev) =>
-        prev.map((creator) =>
-          creator.id === selectedId ? { ...creator, ...formData } : creator
-        )
-      );
-
-      alert("Creator updated successfully!");
+      onSave?.(data[0]);
     } catch (error) {
-      console.error(
-        "Error updating creator:",
-        error.response?.data || error.message
-      );
+      console.error("Error updating creator:", error.response?.data || error.message);
       alert("Failed to update creator");
+    } finally {
+      setSaving(false);
     }
   };
 
   return (
-    <div>
-      <h1 style={{ color: "orange" }}>Edit a Creator</h1>
-
-      <select value={selectedId} onChange={handleSelectChange}>
-        <option value="">-- Select Creator --</option>
-        {displayCreator.map((creator) => (
-          <option key={creator.id} value={creator.id}>
-            {creator.name}
-          </option>
-        ))}
-      </select>
-
-      {selectedId && (
-        <div>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-          />
-          <input
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Description"
-          />
-          <input
-            name="url"
-            value={formData.url}
-            onChange={handleChange}
-            placeholder="YouTube URL"
-          />
-          <input
-            name="imageURL"
-            value={formData.imageURL}
-            onChange={handleChange}
-            placeholder="Image URL"
-          />
-
-          <button onClick={handleUpdate}>Update Creator</button>
-        </div>
-      )}
+    <div style={{ marginTop: 16 }}>
+      <h2>Edit Creator</h2>
+      <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+      <input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
+      <input name="url" value={formData.url} onChange={handleChange} placeholder="YouTube URL" />
+      <input name="imageURL" value={formData.imageURL} onChange={handleChange} placeholder="Image URL" />
+      <div style={{ marginTop: 8 }}>
+        <button onClick={handleUpdate} disabled={saving}>{saving ? "Saving…" : "Save"}</button>
+        <button onClick={onCancel} style={{ marginLeft: 8 }}>Cancel</button>
+      </div>
     </div>
   );
 };
