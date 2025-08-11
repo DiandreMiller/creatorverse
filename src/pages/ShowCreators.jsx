@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ShowCreators = () => {
 
     const [displayCreator, setDisplayCreator] = useState([]);
     const URL = import.meta.env.VITE_API_URL;
     const API_KEY = import.meta.env.VITE_API_KEY;
+    const navigate = useNavigate();
   
     useEffect(() => {
       const fetchCreators = async () => {
@@ -28,6 +30,14 @@ const ShowCreators = () => {
   
       fetchCreators();
     }, [URL, API_KEY]);
+
+
+        const handleNavigate = (id) => {
+            navigate(`/view-creator/${id}`)
+        }
+       
+        
+  
   
     return (
       <div>
@@ -36,7 +46,7 @@ const ShowCreators = () => {
           <ul>
             {displayCreator.map((creator) => (
               <li key={creator.id}>
-                <h3>{creator.name}</h3>
+                <h3 onClick={() => handleNavigate(creator.id)}>{creator.name}</h3>
                 <p>{creator.description}</p>
                 <a href={creator.url} target="_blank" rel="noopener noreferrer">
                   {creator.url}
