@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import supabase from './client';
+import axios from 'axios';
 import './App.css'
 
 //Pages
@@ -14,30 +14,42 @@ import Home from './pages/Home';
 //Components
 import Navbar from './components/Navbar';
 
-console.log('supabase:', supabase);
+
 
 function App() {
 
-  useEffect(() => {
-    async function fetchSession() {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Error fetching session:', error);
-      } else {
-        console.log('Current session:', session);
-      }
-    }
-    fetchSession();
-  }, []);
+  const [displayCreator, setDisplayCreator] = useState([]);
+  const URL = import.meta.env.VITE_API_URL;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
+  useEffect(() => {
+    const fetchCreator = async () => {
+      try {
+        const { data } = await axios.get(
+          `${URL}/rest/v1/creators?select=*`,
+          {
+            headers: {
+              apikey: API_KEY,
+              Authorization: `Bearer ${API_KEY}`,
+            },
+          }
+        );
+        setDisplayCreator(data);
+      } catch (error) {
+        console.error("Error fetching creators:", error.response?.data || error.message);
+      }
+    };
+
+    fetchCreator();
+  }, [URL, API_KEY]);
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route element={<AddCreator />} path='/add-creator'/>
         <Route element={<Home />} path='/' />
-        <Route element={<EditCreator />} path='/edit-creator/:id'/>
-        <Route element={<ShowCreators />} path='/show-creators'/>
+        <Route element={<EditCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/edit-creator/:id'/>
+        <Route element={<ShowCreators displayCreator={displayCreator} />} path='/show-creators'/>
         <Route element={<ViewCreator />} path='/view-creator/:id'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>

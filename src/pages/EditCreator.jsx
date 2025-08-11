@@ -1,10 +1,24 @@
-const EditCreator = () => {
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 
-    return (
-        <div>
-            <h1 style={{ color: 'orange' }}>This page is to edit a creator</h1>
-        </div>
-    )
-}
+// const EditCreator = ({ displayCreator, setDisplayCreator }) => {
 
-export default EditCreator;
+//     const URL = import.meta.env.VITE_API_URL;
+//     const API_KEY = import.meta.env.VITE_API_KEY;
+
+//     const [selectedId, setSelectedId] = useState('');
+//     const [formData, setFormData] = useState({
+//         name: "",
+//         description: "",
+//         url: "",
+//         imageURL: "",
+//       });
+
+//     return (
+//         <div>
+//             <h1 style={{ color: 'orange' }}>This page is to edit a creator</h1>
+//         </div>
+//     )
+// }
+
+// export default EditCreator;
