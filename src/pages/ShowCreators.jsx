@@ -8,7 +8,7 @@ const ShowCreators = () => {
     const API_KEY = import.meta.env.VITE_API_KEY;
   
     useEffect(() => {
-      const fetchCreator = async () => {
+      const fetchCreators = async () => {
         try {
           const { data } = await axios.get(
             `${URL}/rest/v1/creators?select=*`,
@@ -26,7 +26,7 @@ const ShowCreators = () => {
         }
       };
   
-      fetchCreator();
+      fetchCreators();
     }, [URL, API_KEY]);
   
     return (

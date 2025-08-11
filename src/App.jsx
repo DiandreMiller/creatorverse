@@ -35,6 +35,7 @@ function App() {
           }
         );
         setDisplayCreator(data);
+        console.log('data:', data);
       } catch (error) {
         console.error("Error fetching creators:", error.response?.data || error.message);
       }
@@ -50,7 +51,7 @@ function App() {
         <Route element={<Home />} path='/' />
         <Route element={<EditCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/edit-creator/:id'/>
         <Route element={<ShowCreators displayCreator={displayCreator} />} path='/show-creators'/>
-        <Route element={<ViewCreator />} path='/view-creator/:id'/>
+        <Route element={<ViewCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/view-creator/:creatorId'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>
     </BrowserRouter>
