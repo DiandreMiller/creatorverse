@@ -5,7 +5,6 @@ const Card = () => {
 
     const [displayCreator, setDisplayCreator] = useState({});
 
-    const URL
 
     return (
         <div>
