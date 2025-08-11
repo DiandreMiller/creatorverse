@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import axios  from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import EditCreator from "../components/EditCreator";
+import DeleteCreator from "../components/DeleteCreator";
 
 const ViewCreator = () => {
+
+    const navigate = useNavigate();
 
     const { creatorId } = useParams()
     const URL = import.meta.env.VITE_API_URL;
@@ -54,6 +57,10 @@ const ViewCreator = () => {
               </Link>
               <br /><br />
               <button onClick={() => setEditing(true)}>Edit Creator</button>
+              <DeleteCreator
+                creatorId={displaySingleCreator.id}
+                onDeleted={() => navigate("/show-creators")}
+               />
             </>
           ) : (
             <EditCreator
