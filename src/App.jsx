@@ -12,8 +12,7 @@ import Home from './pages/Home';
 
 //Components
 import Navbar from './components/Navbar';
-
-
+import Footer from './components/Footer';
 
 function App() {
 
@@ -52,6 +51,7 @@ function App() {
         <Route element={<ViewCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/view-creator/:creatorId'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>
+      <Footer />
     </BrowserRouter>
 
   );
