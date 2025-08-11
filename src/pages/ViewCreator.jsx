@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios  from "axios";
 import { useParams, Link } from "react-router-dom";
-import EditCreator from "./EditCreator";
+import EditCreator from "../components/EditCreator";
 
 const ViewCreator = () => {
 

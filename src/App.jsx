@@ -5,7 +5,6 @@ import './App.css'
 
 //Pages
 import AddCreator from './pages/AddCreator';
-import EditCreator from './pages/EditCreator';
 import ShowCreators from './pages/ShowCreators';
 import ViewCreator from './pages/ViewCreator';
 import FOUROFOUR from './pages/FOUROFOUR';
@@ -13,8 +12,7 @@ import Home from './pages/Home';
 
 //Components
 import Navbar from './components/Navbar';
-
-
+import Footer from './components/Footer';
 
 function App() {
 
@@ -49,11 +47,11 @@ function App() {
       <Routes>
         <Route element={<AddCreator />} path='/add-creator'/>
         <Route element={<Home />} path='/' />
-        <Route element={<EditCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/edit-creator/:id'/>
         <Route element={<ShowCreators displayCreator={displayCreator} />} path='/show-creators'/>
         <Route element={<ViewCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/view-creator/:creatorId'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>
+      <Footer />
     </BrowserRouter>
 
   );
