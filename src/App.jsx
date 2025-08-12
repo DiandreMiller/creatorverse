@@ -5,6 +5,7 @@ import './App.css'
 
 //Pages
 import AddCreator from './pages/AddCreator';
+import About from './pages/About';
 import ShowCreators from './pages/ShowCreators';
 import ViewCreator from './pages/ViewCreator';
 import FOUROFOUR from './pages/FOUROFOUR';
@@ -46,6 +47,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route element={<AddCreator />} path='/add-creator'/>
+        <Route element={<About />} path='/about' />
         <Route element={<Home />} path='/' />
         <Route element={<ShowCreators displayCreator={displayCreator} />} path='/show-creators'/>
         <Route element={<ViewCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/view-creator/:creatorId'/>
