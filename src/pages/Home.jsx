@@ -11,12 +11,12 @@ const Home = () => {
     "https://yt3.googleusercontent.com/83vLzxAWN8Fa0Tzo56n5i6PrXQtEri0Sz28LecGgZF5rGuv8YDvo7qU2yGcq1_yRYRviHtWz=s176-c-k-c0x00ffffff-no-rj-mo",
     "https://yt3.googleusercontent.com/ytc/AIdro_k9-AutVZhQRS68PVGPZKZt3sccHvhnY0wyWihEKeG-6Q=s176-c-k-c0x00ffffff-no-rj-mo",
     "https://yt3.ggpht.com/cuzJXw7E5zQFjubsBTCwO7joRnvuhekyBXmvJTCondxWiOBpANxxoxXvU0fEx0rOaL6ueJORbQ=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.ggpht.com/4KUjfV32IGE5oyrJyrpz1Q2bQlLXTlteDWJckbQB7fgAEfN0SUdUH8oN-aSqz79OyKKa9m7d_mo=s68-c-k-c0x00ffffff-no-rj-mo",
+    "https://yt3.googleusercontent.com/ZTgTKC0JyuYCXjocrB-kyftYVRQ_q5AwoHb-5geIscRPXBluZv7laz0QMF_HICjY7Lqe4b_g-Qs=s160-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/yLBjfGExL_iEyNmOd5VjEVt6tQWg8Upr1mpafHQfsv-MU3875DnCI74VsslG0lZtiGjg0lf1wTk=s176-c-k-c0x00ffffff-no-rj-mo",
     "https://yt3.ggpht.com/OAONz3oAx1BmChjbCCG9ZFMGiOXsBkoTX-qc2noEI9Aik7hK4FuV1n2EiiEZZJ4M3raCiuOdkQ=s88-c-k-c0x00ffffff-no-rj",
   ];
 
-  // 'single' = rotating 400x400 image; 'grid' = 4x3 all creators
+
   const [mode, setMode] = useState("single");
   const [currentCreator, setCurrentCreator] = useState("");
   const lastIndexRef = useRef(-1);
