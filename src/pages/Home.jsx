@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "@picocss/pico/css/pico.min.css";
 
 const Home = () => {
   const creatorsArray = [
@@ -16,33 +17,33 @@ const Home = () => {
     "https://yt3.ggpht.com/OAONz3oAx1BmChjbCCG9ZFMGiOXsBkoTX-qc2noEI9Aik7hK4FuV1n2EiiEZZJ4M3raCiuOdkQ=s88-c-k-c0x00ffffff-no-rj",
   ];
 
-
   const [mode, setMode] = useState("single");
   const [currentCreator, setCurrentCreator] = useState("");
   const lastIndexRef = useRef(-1);
 
+  // Rotate featured image every 3s in "single" mode
   useEffect(() => {
     const pickRandom = () => {
       if (!creatorsArray.length) return;
       let idx = Math.floor(Math.random() * creatorsArray.length);
       if (creatorsArray.length > 1 && idx === lastIndexRef.current) {
-        idx = (idx + 1) % creatorsArray.length; 
+        idx = (idx + 1) % creatorsArray.length;
       }
       lastIndexRef.current = idx;
       setCurrentCreator(creatorsArray[idx]);
     };
 
     if (mode === "single") {
-      pickRandom(); 
+      pickRandom();
       const id = setInterval(pickRandom, 3000);
       return () => clearInterval(id);
     }
   }, [mode]);
 
+  // Schedule: show grid at 36s, then return to single at 41s
   useEffect(() => {
-    const toGrid = setTimeout(() => setMode("grid"), 60_000);
-    const backToSingle = setTimeout(() => setMode("single"), 70_000);
-
+    const toGrid = setTimeout(() => setMode("grid"), 36000);
+    const backToSingle = setTimeout(() => setMode("single"), 36000 + 5000);
     return () => {
       clearTimeout(toGrid);
       clearTimeout(backToSingle);
@@ -50,53 +51,63 @@ const Home = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-        background: "#000",
-      }}
-    >
+    <main className="container">
+      <header>
+        <h1>Discover Creators</h1>
+      </header>
+
       {mode === "single" ? (
-        currentCreator && (
-          <img
-            src={currentCreator}
-            alt="Random Creator"
-            style={{
-              width: "400px",
-              height: "400px",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        )
+        <article style={{ textAlign: "center" }}>
+          <figure>
+            {currentCreator ? (
+              <img
+                src={currentCreator}
+                alt="Featured creator"
+                style={{
+                  width: "320px",
+                  height: "320px",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                }}
+              />
+            ) : (
+              <progress aria-busy="true" />
+            )}
+            <figcaption>Featured Creator</figcaption>
+          </figure>
+        </article>
       ) : (
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)", 
-            gridTemplateRows: "repeat(3, 1fr)",
-            gap: "12px",
-            width: "100vw",
-            height: "100vh",
-            padding: "12px",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateRows: "repeat(3, 280px)",
+            gap: "20px",
           }}
         >
-          {creatorsArray.map((url, i) => (
-            <img
-              key={i}
-              src={url}
-              alt={`Creator ${i + 1}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+          {creatorsArray.slice(0, 12).map((url, i) => (
+            <div key={i}>
+              <article style={{ height: "100%", textAlign: "center" }}>
+                <figure>
+                  <img
+                    src={url}
+                    alt={`Creator ${i + 1}`}
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderRadius: "12px",
+                    }}
+                  />
+                  <figcaption>Creator {i + 1}</figcaption>
+                </figure>
+              </article>
+            </div>
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 };
 
