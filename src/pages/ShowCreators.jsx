@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
+import "../components/cosmic.css"; // cosmic background + creator-card/grid styles
 
 const ShowCreators = () => {
   const [creators, setCreators] = useState([]);
@@ -24,7 +25,10 @@ const ShowCreators = () => {
         });
         setCreators(data || []);
       } catch (error) {
-        console.error("Error fetching creators:", error.response?.data || error.message);
+        console.error(
+          "Error fetching creators:",
+          error.response?.data || error.message
+        );
       } finally {
         setLoading(false);
       }
@@ -46,15 +50,22 @@ const ShowCreators = () => {
 
   if (loading) {
     return (
-      <main className="container" style={{ position: "relative", overflow: "hidden" }}>
-        {/* Cosmic background */}
-        <BackgroundVibes />
-
-        <article style={{ textAlign: "center", marginTop: "3rem" }}>
+      <main className="container cosmic-background">
+        <article
+          style={{
+            marginTop: "2rem",
+            marginBottom: "3rem",
+            background: "rgba(255,255,255,0.04)",
+            borderRadius: "16px",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "2rem",
+            textAlign: "center",
+          }}
+        >
           <header>
-            <h2 style={{ textShadow: "0 2px 20px rgba(255,255,255,0.15)" }}>
-              Loading creators…
-            </h2>
+            <h2>Loading creators…</h2>
           </header>
           <progress aria-busy="true" />
         </article>
@@ -63,10 +74,7 @@ const ShowCreators = () => {
   }
 
   return (
-    <main className="container" style={{ position: "relative", overflow: "hidden" }}>
-      {/* Cosmic background */}
-      <BackgroundVibes />
-
+    <main className="container cosmic-background">
       <header style={{ textAlign: "center", paddingTop: "1.25rem", marginBottom: "0.75rem" }}>
         <h1 style={{ textShadow: "0 2px 20px rgba(255,255,255,0.15)" }}>Creators</h1>
         <p style={{ opacity: 0.9 }}>Browse and select a creator to view details ✨</p>
@@ -78,10 +86,6 @@ const ShowCreators = () => {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             aria-label="Search creators"
-            style={{
-              backdropFilter: "blur(2px)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
-            }}
           />
         </form>
       </header>
@@ -94,39 +98,21 @@ const ShowCreators = () => {
           <p>Try a different search or add a new creator.</p>
         </article>
       ) : (
-        <ul
-          role="list"
-          className="grid"
+        // Use the shared creator-grid / creator-card styles from cosmic.css
+        <div
+          className="creator-grid"
           style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
+            // Let the grid be responsive (override the fixed 4×3 layout if present)
             gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "20px",
+            gridTemplateRows: "none",
           }}
         >
           {filtered.map((creator) => (
-            <li key={creator.id} style={{ listStyle: "none" }}>
+            <div key={creator.id}>
               <article
-                style={{
-                  height: "100%",
-                  background: "rgba(255,255,255,0.03)",
-                  borderRadius: "14px",
-                  backdropFilter: "blur(2px)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
-                  transition: "transform 180ms ease, box-shadow 180ms ease",
-                  cursor: "pointer",
-                }}
+                className="creator-card"
                 onClick={() => handleNavigate(creator.id)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 14px 36px rgba(0,0,0,0.45), 0 0 30px rgba(120,180,255,0.18)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.35)";
-                }}
+                style={{ cursor: "pointer" }}
               >
                 <header style={{ padding: "12px 12px 0 12px" }}>
                   <h3 style={{ marginBottom: "0.25rem" }}>{creator.name}</h3>
@@ -141,13 +127,8 @@ const ShowCreators = () => {
                       src={creator.imageURL}
                       alt={creator.name}
                       loading="lazy"
-                      style={{
-                        width: "100%",
-                        height: 220,
-                        objectFit: "cover",
-                        borderRadius: "12px",
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
-                      }}
+                      className="creator-image"
+                      style={{ height: 220 }}
                     />
                     <figcaption style={{ marginTop: "8px", opacity: 0.86 }}>
                       {creator.name}
@@ -156,69 +137,22 @@ const ShowCreators = () => {
                 )}
 
                 <footer style={{ padding: "0 12px 12px 12px" }}>
-                  <button onClick={() => handleNavigate(creator.id)}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNavigate(creator.id);
+                    }}
+                  >
                     View Creator
                   </button>
                 </footer>
               </article>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
-
-      {/* Animations & helpers */}
-      <StyleKeyframes />
     </main>
   );
 };
 
 export default ShowCreators;
-
-/* --- Helpers for background/animations  --- */
-
-function BackgroundVibes() {
-  return (
-    <>
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -2,
-          background:
-            "radial-gradient(1200px 800px at 10% 10%, rgba(255,0,128,0.12), transparent), radial-gradient(1000px 700px at 90% 20%, rgba(0,150,255,0.12), transparent), radial-gradient(900px 700px at 50% 100%, rgba(120,255,120,0.10), transparent), linear-gradient(120deg, #0a0a12 0%, #0b0f2a 50%, #120a1a 100%)",
-          animation: "hueshift 16s ease-in-out infinite alternate",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -1,
-          background:
-            "radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.8), transparent 60%), radial-gradient(2px 2px at 30% 80%, rgba(255,255,255,0.7), transparent 60%), radial-gradient(1.5px 1.5px at 50% 30%, rgba(255,255,255,0.7), transparent 60%), radial-gradient(1.75px 1.75px at 70% 60%, rgba(255,255,255,0.8), transparent 60%), radial-gradient(1.25px 1.25px at 85% 40%, rgba(255,255,255,0.6), transparent 60%)",
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px 200px",
-          opacity: 0.6,
-          animation: "twinkle 3s ease-in-out infinite alternate",
-        }}
-      />
-    </>
-  );
-}
-
-function StyleKeyframes() {
-  return (
-    <style>{`
-      @keyframes hueshift {
-        0%   { filter: hue-rotate(0deg) saturate(1) }
-        100% { filter: hue-rotate(25deg) saturate(1.1) }
-      }
-      @keyframes twinkle {
-        0%   { opacity: 0.45; transform: translateY(0px) }
-        100% { opacity: 0.75; transform: translateY(-6px) }
-      }
-    `}</style>
-  );
-}
