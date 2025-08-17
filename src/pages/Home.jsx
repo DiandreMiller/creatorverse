@@ -4,25 +4,73 @@ import "../components/cosmic.css";
 
 const Home = () => {
   const creatorsArray = [
-    "https://yt3.googleusercontent.com/PlAIozzj7_kpNBrKr7QthpfrPQ4zXCdgq1qWPLLCoujUz8i0IQ3CxK2mehF1YBrCyFlQ9r7wwHE=s160-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/ytc/AIdro_mP1aza51ezNHZdlu-31Djm4ahXXq4nvFfPd_Vsi6FjpYg=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.googleusercontent.com/avEB_XnXgDUjG5-s8aCxXSNC5ttkWxdfxup4m_XB2Kmsis-P2uzzkhXgg-HnRbyjpdUkRw8KZg=s160-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/GOwlwlIMVnfQ3MXusklwRa7O44_V5ydopPYwuLD0BXNDDEvD7TB_n5qv-LUAoyznRjAkHwuiSw=s160-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/ytc/AIdro_mnbbz7MFKX9-cW9WT9sOq6xoWqf0S9VF_C3W00vz9C2UA=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.googleusercontent.com/8qn2MIOXj7QqigkzBKFAOcDV24h3ZvYGvMMl22HBm9RGoyL-9-th1PaC45zsyrBQmx9AlVISSkg=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.googleusercontent.com/83vLzxAWN8Fa0Tzo56n5i6PrXQtEri0Sz28LecGgZF5rGuv8YDvo7qU2yGcq1_yRYRviHtWz=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.googleusercontent.com/ytc/AIdro_k9-AutVZhQRS68PVGPZKZt3sccHvhnY0wyWihEKeG-6Q=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.ggpht.com/cuzJXw7E5zQFjubsBTCwO7joRnvuhekyBXmvJTCondxWiOBpANxxoxXvU0fEx0rOaL6ueJORbQ=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.googleusercontent.com/ZTgTKC0JyuYCXjocrB-kyftYVRQ_q5AwoHb-5geIscRPXBluZv7laz0QMF_HICjY7Lqe4b_g-Qs=s160-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/yLBjfGExL_iEyNmOd5VjEVt6tQWg8Upr1mpafHQfsv-MU3875DnCI74VsslG0lZtiGjg0lf1wTk=s176-c-k-c0x00ffffff-no-rj-mo",
-    "https://yt3.ggpht.com/OAONz3oAx1BmChjbCCG9ZFMGiOXsBkoTX-qc2noEI9Aik7hK4FuV1n2EiiEZZJ4M3raCiuOdkQ=s88-c-k-c0x00ffffff-no-rj",
+    {
+      id: 1,
+      image: "https://yt3.googleusercontent.com/PlAIozzj7_kpNBrKr7QthpfrPQ4zXCdgq1qWPLLCoujUz8i0IQ3CxK2mehF1YBrCyFlQ9r7wwHE=s160-c-k-c0x00ffffff-no-rj",
+      name: "Westside Boogie"
+    },
+    {
+      id: 2,
+      image: "https://yt3.googleusercontent.com/ytc/AIdro_mP1aza51ezNHZdlu-31Djm4ahXXq4nvFfPd_Vsi6FjpYg=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Kyle Kulinski"
+    },
+    {
+      id: 3,
+      image: "https://yt3.googleusercontent.com/avEB_XnXgDUjG5-s8aCxXSNC5ttkWxdfxup4m_XB2Kmsis-P2uzzkhXgg-HnRbyjpdUkRw8KZg=s160-c-k-c0x00ffffff-no-rj",
+      name: "Zohran Mamdani"
+    },
+    {
+      id: 4,
+      image: "https://yt3.googleusercontent.com/GOwlwlIMVnfQ3MXusklwRa7O44_V5ydopPYwuLD0BXNDDEvD7TB_n5qv-LUAoyznRjAkHwuiSw=s160-c-k-c0x00ffffff-no-rj",
+      name: "Kenneth English"
+    },
+    {
+      id: 5,
+      image: "https://yt3.googleusercontent.com/ytc/AIdro_mnbbz7MFKX9-cW9WT9sOq6xoWqf0S9VF_C3W00vz9C2UA=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Tra Rags"
+    },
+    {
+      id: 6,
+      image: "https://yt3.googleusercontent.com/8qn2MIOXj7QqigkzBKFAOcDV24h3ZvYGvMMl22HBm9RGoyL-9-th1PaC45zsyrBQmx9AlVISSkg=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Joey Bada$$"
+    },
+    {
+      id: 7,
+      image: "https://yt3.googleusercontent.com/83vLzxAWN8Fa0Tzo56n5i6PrXQtEri0Sz28LecGgZF5rGuv8YDvo7qU2yGcq1_yRYRviHtWz=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Tupac Shakur"
+    },
+    {
+      id: 8,
+      image: "https://yt3.googleusercontent.com/ytc/AIdro_k9-AutVZhQRS68PVGPZKZt3sccHvhnY0wyWihEKeG-6Q=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Stevie Wonder"
+    },
+    {
+      id: 9,
+      image: "https://yt3.ggpht.com/cuzJXw7E5zQFjubsBTCwO7joRnvuhekyBXmvJTCondxWiOBpANxxoxXvU0fEx0rOaL6ueJORbQ=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Aba & Preach"
+    },
+    {
+      id: 10,
+      image: "https://yt3.googleusercontent.com/ZTgTKC0JyuYCXjocrB-kyftYVRQ_q5AwoHb-5geIscRPXBluZv7laz0QMF_HICjY7Lqe4b_g-Qs=s160-c-k-c0x00ffffff-no-rj",
+      name: "Kobe Bryant"
+    },
+    {
+      id: 11,
+      image: "https://yt3.googleusercontent.com/yLBjfGExL_iEyNmOd5VjEVt6tQWg8Upr1mpafHQfsv-MU3875DnCI74VsslG0lZtiGjg0lf1wTk=s176-c-k-c0x00ffffff-no-rj-mo",
+      name: "Check"
+    },
+    {
+      id: 12,
+      image: "https://yt3.ggpht.com/OAONz3oAx1BmChjbCCG9ZFMGiOXsBkoTX-qc2noEI9Aik7hK4FuV1n2EiiEZZJ4M3raCiuOdkQ=s88-c-k-c0x00ffffff-no-rj",
+      name: "SZA"
+    }
   ];
 
   const [mode, setMode] = useState("single"); // "single" | "grid"
-  const [currentCreator, setCurrentCreator] = useState("");
+  const [currentCreator, setCurrentCreator] = useState(null);
   const lastIndexRef = useRef(-1);
 
-  // Rotate featured image every 3s in "single" mode
+  // Rotate featured creator every 3s in "single" mode
   useEffect(() => {
     const pickRandom = () => {
       if (!creatorsArray.length) return;
@@ -68,32 +116,32 @@ const Home = () => {
           <figure style={{ display: "inline-block" }}>
             {currentCreator ? (
               <img
-                src={currentCreator}
-                alt="Featured creator"
+                src={currentCreator.image}
+                alt={currentCreator.name}
                 className="featured-creator"
               />
             ) : (
               <progress aria-busy="true" />
             )}
             <figcaption style={{ marginTop: "0.75rem", opacity: 0.85 }}>
-              Featured Creator
+              {currentCreator ? currentCreator.name : "Loading..."}
             </figcaption>
           </figure>
         </article>
       ) : (
         <div className="creator-grid">
-          {creatorsArray.slice(0, 12).map((url, i) => (
-            <div key={i}>
+          {creatorsArray.map((creator) => (
+            <div key={creator.id}>
               <article className="creator-card">
                 <figure style={{ padding: "12px" }}>
                   <img
-                    src={url}
-                    alt={`Creator ${i + 1}`}
+                    src={creator.image}
+                    alt={creator.name}
                     loading="lazy"
                     className="creator-image"
                   />
                   <figcaption style={{ marginTop: "8px", opacity: 0.86 }}>
-                    Creator {i + 1}
+                    {creator.name}
                   </figcaption>
                 </figure>
               </article>
