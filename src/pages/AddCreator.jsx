@@ -64,7 +64,7 @@ const AddCreator = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="e.g., Coding with Amy"
+                placeholder="e.g., Keep It 100 Dre"
                 value={formData.name}
                 onChange={handleChange}
                 required
