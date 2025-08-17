@@ -80,19 +80,29 @@ const ShowCreators = () => {
           <p>Try a different search or add a new creator.</p>
         </article>
       ) : (
-        <ul role="list" className="grid">
+        <ul
+          role="list"
+          className="grid"
+          style={{ listStyle: "none", padding: 0, margin: 0 }}
+        >
           {filtered.map((creator) => (
-            <li key={creator.id}>
+            <li key={creator.id} style={{ listStyle: "none" }}>
               <article>
                 <header>
-                  <h3 style={{ cursor: "pointer" }} onClick={() => handleNavigate(creator.id)}>
+                  <h3
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleNavigate(creator.id)}
+                  >
                     {creator.name}
                   </h3>
                   <p>{creator.description || "No description provided."}</p>
                 </header>
 
                 {creator.imageURL && (
-                  <figure style={{ cursor: "pointer" }} onClick={() => handleNavigate(creator.id)}>
+                  <figure
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleNavigate(creator.id)}
+                  >
                     <img
                       src={creator.imageURL}
                       alt={creator.name}
@@ -103,7 +113,9 @@ const ShowCreators = () => {
                 )}
 
                 <footer>
-                  <button onClick={() => handleNavigate(creator.id)}>View Creator</button>
+                  <button onClick={() => handleNavigate(creator.id)}>
+                    View Creator
+                  </button>
                 </footer>
               </article>
             </li>
