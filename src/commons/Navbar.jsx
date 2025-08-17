@@ -27,6 +27,7 @@ const Navbar = () => {
         }}
       >
       
+      <Link to='/'>
         <div
           style={{
             fontSize: "1.4rem",
@@ -38,7 +39,7 @@ const Navbar = () => {
         >
           ✨ CreatorVerse ✨
         </div>
-
+      </Link>
         {/* Navigation Links */}
         <ul
           style={{
