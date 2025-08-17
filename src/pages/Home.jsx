@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "@picocss/pico/css/pico.min.css";
+import "../components/cosmic.css"; 
 
 const Home = () => {
   const creatorsArray = [
@@ -17,7 +18,7 @@ const Home = () => {
     "https://yt3.ggpht.com/OAONz3oAx1BmChjbCCG9ZFMGiOXsBkoTX-qc2noEI9Aik7hK4FuV1n2EiiEZZJ4M3raCiuOdkQ=s88-c-k-c0x00ffffff-no-rj",
   ];
 
-  const [mode, setMode] = useState("single");
+  const [mode, setMode] = useState("single"); // "single" | "grid"
   const [currentCreator, setCurrentCreator] = useState("");
   const lastIndexRef = useRef(-1);
 
@@ -40,47 +41,25 @@ const Home = () => {
     }
   }, [mode]);
 
-  // Schedule: show grid at 36s, then return to single at 41s
+  // Switch to grid after 36s
   useEffect(() => {
     const toGrid = setTimeout(() => setMode("grid"), 36000);
-    const backToSingle = setTimeout(() => setMode("single"), 36000 + 5000);
-    return () => {
-      clearTimeout(toGrid);
-      clearTimeout(backToSingle);
-    };
+    return () => clearTimeout(toGrid);
   }, []);
 
-  return (
-    <main className="container" style={{ position: "relative", overflow: "hidden" }}>
-      {/* Cosmic animated background layers */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -2,
-          background:
-            "radial-gradient(1200px 800px at 10% 10%, rgba(255,0,128,0.12), transparent), radial-gradient(1000px 700px at 90% 20%, rgba(0,150,255,0.12), transparent), radial-gradient(900px 700px at 50% 100%, rgba(120,255,120,0.10), transparent), linear-gradient(120deg, #0a0a12 0%, #0b0f2a 50%, #120a1a 100%)",
-          animation: "hueshift 16s ease-in-out infinite alternate",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -1,
-          background:
-            "radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.8), transparent 60%), radial-gradient(2px 2px at 30% 80%, rgba(255,255,255,0.7), transparent 60%), radial-gradient(1.5px 1.5px at 50% 30%, rgba(255,255,255,0.7), transparent 60%), radial-gradient(1.75px 1.75px at 70% 60%, rgba(255,255,255,0.8), transparent 60%), radial-gradient(1.25px 1.25px at 85% 40%, rgba(255,255,255,0.6), transparent 60%)",
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px 200px",
-          opacity: 0.6,
-          animation: "twinkle 3s ease-in-out infinite alternate",
-        }}
-      />
+  // When in grid, go back to single after 5s
+  useEffect(() => {
+    if (mode !== "grid") return;
+    const back = setTimeout(() => setMode("single"), 5000);
+    return () => clearTimeout(back);
+  }, [mode]);
 
+  return (
+    <main className="container cosmic-background">
       <header style={{ textAlign: "center", paddingTop: "1.5rem" }}>
-        <h1 style={{ textShadow: "0 2px 20px rgba(255,255,255,0.15)" }}>Discover Creators</h1>
+        <h1 style={{ textShadow: "0 2px 20px rgba(255,255,255,0.15)" }}>
+          Discover Creators
+        </h1>
         <p style={{ opacity: 0.9 }}>A little cosmic magic while you browse ✨</p>
       </header>
 
@@ -91,15 +70,7 @@ const Home = () => {
               <img
                 src={currentCreator}
                 alt="Featured creator"
-                style={{
-                  width: "340px",
-                  height: "340px",
-                  objectFit: "cover",
-                  borderRadius: "18px",
-                  boxShadow:
-                    "0 8px 40px rgba(0,0,0,0.45), 0 0 40px rgba(100,170,255,0.25), 0 0 80px rgba(255,120,200,0.18)",
-                  animation: "float 6s ease-in-out infinite",
-                }}
+                className="featured-creator"
               />
             ) : (
               <progress aria-busy="true" />
@@ -110,49 +81,16 @@ const Home = () => {
           </figure>
         </article>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gridTemplateRows: "repeat(3, 280px)",
-            gap: "20px",
-            marginTop: "1.25rem",
-          }}
-        >
+        <div className="creator-grid">
           {creatorsArray.slice(0, 12).map((url, i) => (
             <div key={i}>
-              <article
-                style={{
-                  height: "100%",
-                  textAlign: "center",
-                  background: "rgba(255,255,255,0.03)",
-                  borderRadius: "14px",
-                  backdropFilter: "blur(2px)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
-                  transition: "transform 180ms ease, box-shadow 180ms ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 14px 36px rgba(0,0,0,0.45), 0 0 30px rgba(120,180,255,0.18)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.35)";
-                }}
-              >
+              <article className="creator-card">
                 <figure style={{ padding: "12px" }}>
                   <img
                     src={url}
                     alt={`Creator ${i + 1}`}
                     loading="lazy"
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      objectFit: "cover",
-                      borderRadius: "12px",
-                      boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
-                    }}
+                    className="creator-image"
                   />
                   <figcaption style={{ marginTop: "8px", opacity: 0.86 }}>
                     Creator {i + 1}
@@ -163,23 +101,6 @@ const Home = () => {
           ))}
         </div>
       )}
-
-      {/* Inline keyframes and small helpers */}
-      <style>{`
-        @keyframes float {
-          0% { transform: translateY(0px) }
-          50% { transform: translateY(-8px) }
-          100% { transform: translateY(0px) }
-        }
-        @keyframes hueshift {
-          0%   { filter: hue-rotate(0deg) saturate(1) }
-          100% { filter: hue-rotate(25deg) saturate(1.1) }
-        }
-        @keyframes twinkle {
-          0%   { opacity: 0.45; transform: translateY(0px) }
-          100% { opacity: 0.75; transform: translateY(-6px) }
-        }
-      `}</style>
     </main>
   );
 };
