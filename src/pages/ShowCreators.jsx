@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
-import "../components/cosmic.css"; // cosmic background + creator-card/grid styles
+import "../components/cosmic.css"; 
 
 const ShowCreators = () => {
   const [creators, setCreators] = useState([]);
