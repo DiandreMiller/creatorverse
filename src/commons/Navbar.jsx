@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
-import "../components/cosmic.css"; // keep consistent cosmic vibe
+import "../components/cosmic.css"; 
 
 const Navbar = () => {
   const location = useLocation();
