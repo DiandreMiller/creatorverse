@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import "@picocss/pico/css/pico.min.css";
+import "../components/cosmic.css";
 import EditCreator from "../components/EditCreator";
 import DeleteCreator from "../components/DeleteCreator";
 
@@ -19,7 +21,6 @@ const ViewCreator = () => {
     const fetchCreator = async () => {
       try {
         const { data } = await axios.get(
-          // include id; quote imageURL due to camelCase column
           `${URL}/rest/v1/creators?id=eq.${creatorId}&select=id,name,description,url,%22imageURL%22`,
           {
             headers: {
@@ -31,7 +32,10 @@ const ViewCreator = () => {
         );
         setCreator(data[0] || null);
       } catch (error) {
-        console.error("Error fetching single creator:", error.response?.data || error.message);
+        console.error(
+          "Error fetching single creator:",
+          error.response?.data || error.message
+        );
       } finally {
         setLoading(false);
       }
@@ -41,8 +45,20 @@ const ViewCreator = () => {
 
   if (loading) {
     return (
-      <main className="container">
-        <article>
+      <main className="container cosmic-background">
+        <article
+          style={{
+            marginTop: "2rem",
+            marginBottom: "3rem",
+            background: "rgba(255,255,255,0.04)",
+            borderRadius: "16px",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "2rem",
+            textAlign: "center",
+          }}
+        >
           <header>
             <h2>Loading creator…</h2>
           </header>
@@ -54,25 +70,36 @@ const ViewCreator = () => {
 
   if (!creator) {
     return (
-      <main className="container">
-        <article>
+      <main className="container cosmic-background">
+        <article
+          style={{
+            marginTop: "2rem",
+            marginBottom: "3rem",
+            background: "rgba(255,255,255,0.04)",
+            borderRadius: "16px",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "2rem",
+          }}
+        >
           <header>
             <h2>Creator not found</h2>
+            <p>We couldn’t find this creator.</p>
           </header>
-          <p>We couldn’t find this creator.</p>
-          <nav>
-            <ul>
-              <li><Link to="/show-creators">Back to list</Link></li>
-            </ul>
-          </nav>
+          <p>
+            <Link to="/show-creators" role="button" className="secondary">
+              ← Back to all creators
+            </Link>
+          </p>
         </article>
       </main>
     );
   }
 
   return (
-    <main className="container">
-      <nav aria-label="breadcrumb">
+    <main className="container cosmic-background">
+      <nav aria-label="breadcrumb" style={{ marginTop: "1rem" }}>
         <ul>
           <li><Link to="/show-creators">Creators</Link></li>
           <li>{creator.name}</li>
@@ -80,36 +107,67 @@ const ViewCreator = () => {
       </nav>
 
       {!editing ? (
-        <article>
-          <header>
-            <h2>{creator.name}</h2>
-            <p>{creator.description || "No description provided."}</p>
+        <article
+          style={{
+            marginTop: "1rem",
+            marginBottom: "3rem",
+            background: "rgba(255,255,255,0.04)",
+            borderRadius: "16px",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "2rem",
+          }}
+        >
+          <header style={{ textAlign: "center" }}>
+            <h2 style={{ textShadow: "0 2px 20px rgba(255,255,255,0.15)" }}>
+              {creator.name}
+            </h2>
+            <p style={{ opacity: 0.9 }}>
+              {creator.description || "No description provided."}
+            </p>
           </header>
 
           <div className="grid">
-            <figure>
+            <figure style={{ margin: 0 }}>
               <img
                 src={creator.imageURL}
                 alt={creator.name}
-                style={{ maxHeight: 360, objectFit: "cover", width: "100%" }}
+                className="creator-image"
+                style={{ width: "100%", maxHeight: 360, objectFit: "cover" }}
               />
-              <figcaption>{creator.name}</figcaption>
+              <figcaption style={{ textAlign: "center", marginTop: "0.5rem" }}>
+                {creator.name}
+              </figcaption>
             </figure>
 
+            {/* Right column: stacked, aligned buttons */}
             <section>
-              <p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: "0.75rem",
+                  maxWidth: "280px",
+                }}
+              >
                 <a
                   href={creator.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   role="button"
+                  style={{ width: "100%" }}
                 >
                   Visit YouTube Page
                 </a>
-              </p>
 
-              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                <button onClick={() => setEditing(true)}>Edit Creator</button>
+                <button
+                  onClick={() => setEditing(true)}
+                  style={{ width: "100%" }}
+                >
+                  Edit Creator
+                </button>
 
                 <DeleteCreator
                   creatorId={creator.id}
@@ -124,8 +182,19 @@ const ViewCreator = () => {
           </div>
         </article>
       ) : (
-        <article>
-          <header>
+        <article
+          style={{
+            marginTop: "1rem",
+            marginBottom: "3rem",
+            background: "rgba(255,255,255,0.04)",
+            borderRadius: "16px",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.45)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "2rem",
+          }}
+        >
+          <header style={{ textAlign: "center" }}>
             <h2>Edit {creator.name}</h2>
           </header>
 
@@ -139,10 +208,10 @@ const ViewCreator = () => {
             }}
           />
 
-          <footer>
-            <small>
-              <button className="secondary" onClick={() => setEditing(false)}>Cancel</button>
-            </small>
+          <footer style={{ marginTop: "0.75rem", textAlign: "center" }}>
+            <button className="secondary" onClick={() => setEditing(false)}>
+              Cancel
+            </button>
           </footer>
         </article>
       )}
