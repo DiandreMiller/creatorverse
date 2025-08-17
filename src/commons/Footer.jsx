@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
 
 const Footer = () => {
@@ -14,9 +15,11 @@ const Footer = () => {
         }}
       >
         {/* Branding */}
-        <p style={{ margin: 0 }}>
-          <strong>CreatorVerse</strong> &copy; {new Date().getFullYear()}
-        </p>
+        <Link to='/'>
+          <p style={{ margin: 0 }}>
+            <strong>CreatorVerse</strong> &copy; {new Date().getFullYear()}
+          </p>
+        </Link>
 
         {/* Navigation Links */}
         <nav>
