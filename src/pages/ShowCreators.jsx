@@ -98,11 +98,9 @@ const ShowCreators = () => {
           <p>Try a different search or add a new creator.</p>
         </article>
       ) : (
-        // Use the shared creator-grid / creator-card styles from cosmic.css
         <div
           className="creator-grid"
           style={{
-            // Let the grid be responsive (override the fixed 4×3 layout if present)
             gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
             gridTemplateRows: "none",
           }}
