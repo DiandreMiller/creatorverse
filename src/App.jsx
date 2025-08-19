@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from 'axios';
 import './App.css';
 
 //Pages
@@ -18,31 +16,6 @@ import Footer from './commons/Footer';
 
 function App() {
 
-  const [displayCreator, setDisplayCreator] = useState([]);
-  const URL = import.meta.env.VITE_API_URL;
-  const API_KEY = import.meta.env.VITE_API_KEY;
-
-  useEffect(() => {
-    const fetchCreator = async () => {
-      try {
-        const { data } = await axios.get(
-          `${URL}/rest/v1/creators?select=*`,
-          {
-            headers: {
-              apikey: API_KEY,
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          }
-        );
-        setDisplayCreator(data);
-        console.log('data:', data);
-      } catch (error) {
-        console.error("Error fetching creators:", error.response?.data || error.message);
-      }
-    };
-
-    fetchCreator();
-  }, [URL, API_KEY]);
   return (
     <BrowserRouter>
       <Navbar />
@@ -50,8 +23,8 @@ function App() {
         <Route element={<AddCreator />} path='/add-creator'/>
         <Route element={<About />} path='/about' />
         <Route element={<Home />} path='/' />
-        <Route element={<ShowCreators displayCreator={displayCreator} />} path='/show-creators'/>
-        <Route element={<ViewCreator displayCreator={displayCreator} setDisplayCreator={setDisplayCreator} />} path='/view-creator/:creatorId'/>
+        <Route element={<ShowCreators />} path='/show-creators'/>
+        <Route element={<ViewCreator  />} path='/view-creator/:creatorId'/>
         <Route element={<FOUROFOUR />} path='/*'/>
       </Routes>
       <Footer />
