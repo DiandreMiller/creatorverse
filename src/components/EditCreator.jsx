@@ -3,6 +3,7 @@ import axios from "axios";
 import "@picocss/pico/css/pico.min.css";
 import "../components/cosmic.css";
 
+//This is to edit a creator
 const EditCreator = ({ creatorId, creator, onCancel, onSave }) => {
   const URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
