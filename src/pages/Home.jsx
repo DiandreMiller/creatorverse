@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "@picocss/pico/css/pico.min.css";
 import "../components/cosmic.css"; 
 
+//This is the home page
 const Home = () => {
   const creatorsArray = [
     {
