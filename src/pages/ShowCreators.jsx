@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "@picocss/pico/css/pico.min.css";
 import "../components/cosmic.css"; 
 
+// This is to show all creators
 const ShowCreators = () => {
   const [creators, setCreators] = useState([]);
   const [loading, setLoading] = useState(true);
