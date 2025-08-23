@@ -6,6 +6,7 @@ import "../components/cosmic.css";
 import EditCreator from "../components/EditCreator";
 import DeleteCreator from "../components/DeleteCreator";
 
+//This is to show a single creator
 const ViewCreator = () => {
   const navigate = useNavigate();
   const { creatorId } = useParams();
