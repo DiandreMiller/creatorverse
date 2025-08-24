@@ -1,6 +1,7 @@
 import "@picocss/pico/css/pico.min.css";
 import "../components/cosmic.css";
 
+//This is the about page
 const About = () => {
   return (
     <main className="container" style={{ position: "relative", overflow: "hidden" }}>
