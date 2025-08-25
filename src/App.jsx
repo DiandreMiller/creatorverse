@@ -14,6 +14,7 @@ import Navbar from './commons/Navbar';
 import Footer from './commons/Footer';
 
 
+//App.js
 function App() {
 
   return (
