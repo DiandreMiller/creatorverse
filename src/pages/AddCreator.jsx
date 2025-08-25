@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "@picocss/pico/css/pico.min.css";
 
+// This page is to add a creator
 const AddCreator = () => {
   const URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
