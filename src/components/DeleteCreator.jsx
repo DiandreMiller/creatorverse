@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-//Delete Creator
+//This page is to Delete Creator
 const DeleteCreator = ({ creatorId: propId, onDeleted }) => {
   const { creatorId: routeId } = useParams();
   const navigate = useNavigate();
